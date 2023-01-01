@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FiGift } from 'react-icons/fi';
-import buidldspaceWhite from './assets/buildspace-white.svg';
-import tecWhite from './assets/tec-white.svg';
+import buidldspaceWhite from '../../../assets/buildspace-white.svg';
+import tecWhite from '../../../assets/tec-white.svg';
 
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';

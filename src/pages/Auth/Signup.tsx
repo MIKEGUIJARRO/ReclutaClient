@@ -27,7 +27,7 @@ export const Signup = () => {
     onSuccess: (data) => {
       if (data?.success) {
         queryClient.setQueriesData(['profile'], data);
-        navigate('/home');
+        navigate('/company-registration');
       }
     },
   });
@@ -128,7 +128,7 @@ export const Signup = () => {
               <input
                 type={'password'}
                 placeholder="Contraseña"
-                className="input w-full"
+                className="input input-bordered w-full"
                 onChange={(e) => setPassword(e.target.value)}
               />
               <button onClick={signupHandler} className="btn">

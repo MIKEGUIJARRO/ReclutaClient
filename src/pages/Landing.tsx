@@ -17,25 +17,43 @@ import stats from '../assets/stats.svg';
 
 import React from 'react';
 
-import { Form } from '../Form';
+import { Form } from '../components/pages/landing/Form';
 import { Link } from 'react-router-dom';
 import { Gradient } from '../components/ui/Gradient';
 import { Logo } from '../components/ui/Logo';
 import { useGetProfile } from '../hooks/useGetProfile';
+import { useGetCompany } from '../hooks/useGetCompany';
 // TODO: Add SDKs for Firebase products that you want to use
 
 function Landing() {
-  const { data, error, isLoading } = useGetProfile();
+  const { data: profileData } = useGetProfile();
+  const { data: companyData } = useGetCompany();
 
   const renderButtonsNavbar = () => {
-    if (!data?.success) {
+    console.log(profileData);
+    console.log(companyData);
+    if (!profileData?.success) {
       return (
         <Link to={'/signup'} className="btn btn-ghost space-x-2">
           <FiZap size={24} />
           <span>Registrate</span>
         </Link>
       );
-    } else if (data?.success) {
+    } else if (
+      profileData?.success &&
+      (!companyData?.success || companyData.data.length === 0)
+    ) {
+      return (
+        <Link to={'/company-registration'} className="btn btn-ghost space-x-2">
+          <FiZap size={24} />
+          <span>Continua con tu registro</span>
+        </Link>
+      );
+    } else if (
+      profileData?.success &&
+      companyData?.success &&
+      companyData?.data.length > 0
+    ) {
       return (
         <Link to={'/home'} className="btn btn-ghost space-x-2">
           <FiHome size={24} />

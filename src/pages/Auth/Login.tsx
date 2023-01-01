@@ -24,7 +24,7 @@ export const Login = () => {
     onSuccess: (data) => {
       if (data?.success) {
         queryClient.setQueriesData(['profile'], data);
-        navigate('/home');
+        navigate('/company-registration');
       }
     },
   });
@@ -102,7 +102,7 @@ export const Login = () => {
               <input
                 type={'password'}
                 placeholder="Contraseña"
-                className="input w-full"
+                className="input input-bordered w-full"
                 onChange={(e) => setPassword(e.target.value)}
               />
               <button className="btn" onClick={loginHandler}>

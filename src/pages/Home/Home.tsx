@@ -30,6 +30,7 @@ export const Home = () => {
     onSuccess: (data) => {
       if (data?.success) {
         queryClient.removeQueries(['profile']);
+        queryClient.removeQueries(['company']);
         navigate('/');
       }
     },
@@ -65,26 +66,26 @@ export const Home = () => {
                 <li>
                   <Link to={''}>
                     <FiHome size={24} />
-                    <span>Inicio</span>
+                    <span className="font-semibold">Inicio</span>
                   </Link>
                 </li>
                 <li>
                   <Link to={'positions'}>
                     <FiClipboard size={24} />
-                    <span>Posiciones</span>
+                    <span className="font-semibold">Posiciones</span>
                   </Link>
                 </li>
                 <li>
                   <Link to={'candidates'}>
                     <FiUsers size={24} />
-                    <span>Candidatos</span>
+                    <span className="font-semibold">Candidatos</span>
                   </Link>
                 </li>
                 <div className="divider py-4"></div>
                 <li>
                   <Link to={'configuration'}>
                     <FiSettings size={24} />
-                    <span>Configuración</span>
+                    <span className="font-semibold">Configuración</span>
                   </Link>
                 </li>
               </ul>
@@ -97,11 +98,6 @@ export const Home = () => {
                     <FiLogOut size={24} /> Cerrar sesión
                   </button>
                 </li>
-                {/*  {data && (
-                  <li>
-                    <p>{JSON.stringify(data, null, 4)}</p>
-                  </li>
-                )} */}
               </ul>
             </div>
           </div>

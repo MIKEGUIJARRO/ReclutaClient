@@ -5,7 +5,7 @@ import { Error } from './pages/Error';
 import { Signup } from './pages/Auth/Signup';
 import { Login } from './pages/Auth/Login';
 import { Home } from './pages/Home/Home';
-import { Positions } from './pages/Home/Positions';
+import { Positions } from './pages/Home/Positions/Positions';
 import { Candidates } from './pages/Home/Candidates';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './constants/queryClient';
@@ -15,6 +15,8 @@ import { Root } from './utils/Root';
 import { ProtectedRouteAuth } from './utils/ProtectedRouteAuth';
 import { Welcome } from './pages/Home/Welcome';
 import { Configuration } from './pages/Home/Configuration';
+import { CreatePosition } from './pages/Home/Positions/CreatePosition';
+import { CompanyRegistration } from './pages/Auth/CompanyRegistration';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -36,6 +38,10 @@ const router = createBrowserRouter([
           {
             path: 'positions',
             element: <Positions />,
+          },
+          {
+            path: 'positions/create',
+            element: <CreatePosition />,
           },
           {
             path: 'candidates',
@@ -61,6 +67,14 @@ const router = createBrowserRouter([
           <ProtectedRouteAuth>
             <Login />
           </ProtectedRouteAuth>
+        ),
+      },
+      {
+        path: '/company-registration',
+        element: (
+          <ProtectedRoute>
+            <CompanyRegistration />
+          </ProtectedRoute>
         ),
       },
       {

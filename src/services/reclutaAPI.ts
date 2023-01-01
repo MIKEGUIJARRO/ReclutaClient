@@ -1,4 +1,5 @@
 import { ENDPOINTS } from '../constants/ENDPOINTS';
+import { GenericOptions } from './GenericOptions';
 
 interface User {
   firstName: string;
@@ -16,12 +17,12 @@ interface Endpoint {
   method: 'GET' | 'POST' | 'PUT' | 'DELETE';
   resource: string;
   params: Params;
-  body: Object;
+  body?: Object;
 }
 
 interface GenericResponse {
   success: boolean;
-  data: Object | undefined;
+  data: any;
   message: Object | undefined;
   error: string | undefined;
 }
@@ -71,6 +72,45 @@ export class ReclutaAPI {
         };
       },
     },
+    company: {
+      findOne: (options: GenericOptions): Endpoint => {
+        return {
+          method: 'GET',
+          resource: `/api/v1/company/${options.id}`,
+          params: {},
+        };
+      },
+      findAll: (options: GenericOptions): Endpoint => {
+        return {
+          method: 'GET',
+          resource: `/api/v1/company`,
+          params: {},
+        };
+      },
+      create: (options: GenericOptions): Endpoint => {
+        return {
+          method: 'POST',
+          resource: `/api/v1/company`,
+          params: {},
+          body: options.body,
+        };
+      },
+      update: (options: GenericOptions): Endpoint => {
+        return {
+          method: 'PUT',
+          resource: `/api/v1/company/${options.id}`,
+          params: {},
+          body: options.body,
+        };
+      },
+      delete: (options: GenericOptions): Endpoint => {
+        return {
+          method: 'DELETE',
+          resource: `/api/v1/company/${options.id}`,
+          params: {},
+        };
+      },
+    },
   };
   headers: HeadersInit = {
     'Content-Type': 'application/json',
@@ -78,7 +118,7 @@ export class ReclutaAPI {
   };
   constructor() {}
 
-  async fetchData(endpoint: Endpoint) {
+  private async fetchData(endpoint: Endpoint) {
     try {
       const url = new URL(this.HOSTNAME_URL + endpoint.resource);
       if (endpoint.params) {
@@ -110,8 +150,16 @@ export class ReclutaAPI {
     method: 'loginLocal' | 'signupLocal' | 'getProfile' | 'logout',
     options: Object = {}
   ) {
-    console.log(method);
     const existingEndpoint = this.endpoints.auth[method];
+    const endpoint = existingEndpoint(options);
+    return await this.fetchData(endpoint);
+  }
+
+  async company(
+    method: 'findOne' | 'findAll' | 'create' | 'update' | 'delete',
+    options: GenericOptions
+  ) {
+    const existingEndpoint = this.endpoints.company[method];
     const endpoint = existingEndpoint(options);
     return await this.fetchData(endpoint);
   }
