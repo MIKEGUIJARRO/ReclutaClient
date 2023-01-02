@@ -7,7 +7,6 @@ export const useGetCompany = () => {
     ['company'],
     async () => {
       const response = await reclutaApi.company('findAll', {});
-      console.log(response);
       return response;
     },
     {}
