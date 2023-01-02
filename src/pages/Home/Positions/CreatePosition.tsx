@@ -1,13 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import { FiAlertCircle, FiArrowLeft, FiChevronLeft } from 'react-icons/fi';
-import { useNavigate } from 'react-router-dom';
+import { FiAlertCircle } from 'react-icons/fi';
+import { BackButton } from '../../../components/ui/BackButton';
 import { Toast } from '../../../components/ui/Toast';
 import { ReclutaAPI } from '../../../services/reclutaAPI';
 
 export const CreatePosition = () => {
-  const navigate = useNavigate();
-
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [warning, setWarning] = useState<null | string>(null);
@@ -67,14 +65,7 @@ export const CreatePosition = () => {
         errorMessage={error ? 'Error al crear posición' : null}
       />
       <div className="flex gap-2">
-        <button
-          className="btn btn-ghost btn-circle"
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
-          <FiArrowLeft size={24} />
-        </button>
+        <BackButton />
         <h1 className="font-bold text-4xl">Agregar Posición</h1>
       </div>
       <div className="divider"></div>
