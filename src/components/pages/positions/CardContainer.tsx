@@ -26,7 +26,6 @@ export const CardContainer: FC<CardContainer> = ({ data }) => {
     candidates: number | string,
     createdAt: string
   ) => {
-    transformCreatedAt(createdAt);
     const card = (
       <CardPosition
         key={id}
