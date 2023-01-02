@@ -38,7 +38,11 @@ export const CardContainer: FC<CardContainer> = ({ data }) => {
     );
 
     if (index === 0) {
-      return <div className="col-start-1">{card}</div>;
+      return (
+        <div className="col-start-1" key={id}>
+          {card}
+        </div>
+      );
     }
     return card;
   };

@@ -22,9 +22,11 @@ export const CardPosition: FC<CardPosition> = ({
       <div className="card-body">
         <div className="flex flex-col">
           <div className="flex items-center justify-between">
-            <h2 className="card-title line-clamp-2">{title}</h2>
+            <Link className="link link-hover" to={`/home/positions/${id}`}>
+              <h2 className="card-title line-clamp-">{title}</h2>
+            </Link>
             <Link
-              to={`/home/positions/${id}`}
+              to={`/home/positions/update/${id}`}
               className="btn btn-ghost btn-md  btn-square"
             >
               <FiEdit size={22} />
