@@ -10,13 +10,14 @@ import { Candidates } from './pages/Home/Candidates';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './constants/queryClient';
 import { ProtectedRoute } from './utils/ProtectedRoute';
-import { useGetProfile } from './hooks/useGetProfile';
 import { Root } from './utils/Root';
 import { ProtectedRouteAuth } from './utils/ProtectedRouteAuth';
 import { Welcome } from './pages/Home/Welcome';
 import { Configuration } from './pages/Home/Configuration';
 import { CreatePosition } from './pages/Home/Positions/CreatePosition';
 import { CompanyRegistration } from './pages/Auth/CompanyRegistration';
+import { Position } from './pages/Home/Positions/Position';
+import { UpdatePosition } from './pages/Home/Positions/UpdatePosition';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -40,8 +41,16 @@ const router = createBrowserRouter([
             element: <Positions />,
           },
           {
+            path: 'positions/:positionId',
+            element: <Position />,
+          },
+          {
             path: 'positions/create',
             element: <CreatePosition />,
+          },
+          {
+            path: 'positions/update/:positionId',
+            element: <UpdatePosition />,
           },
           {
             path: 'candidates',
