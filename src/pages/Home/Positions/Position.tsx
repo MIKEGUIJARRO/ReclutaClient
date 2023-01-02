@@ -3,7 +3,6 @@ import React from 'react';
 import { FiEdit } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { Modal } from '../../../components/pages/positions/Modal';
 import { BackButton } from '../../../components/ui/BackButton';
 import { Toast } from '../../../components/ui/Toast';
 import { ReclutaAPI } from '../../../services/reclutaAPI';
@@ -24,7 +23,6 @@ export const Position = () => {
   const mutationFn = async (options: Object) => {
     const reclutaAPI = new ReclutaAPI();
     const response = await reclutaAPI.positions('delete', options);
-    console.log(response);
     return response;
   };
 
