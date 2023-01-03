@@ -60,7 +60,7 @@ export const Position = () => {
           <FiEdit size={24} /> Eliminar
         </button>
       </div>
-      <p className="max-w-2xl">{data?.data.description}</p>
+      <p className="max-w-2xl whitespace-pre-wrap">{data?.data.description}</p>
     </div>
   );
 };
