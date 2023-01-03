@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { CardContainer } from '../../../components/pages/positions/CardContainer';
+import { CardPositionsContainer } from '../../../components/pages/positions/CardPositionsContainer';
 import { ReclutaAPI } from '../../../services/reclutaAPI';
 
 export const Positions = () => {
@@ -14,7 +14,7 @@ export const Positions = () => {
     <div className="">
       <h1 className="font-bold text-4xl">Posiciones</h1>
       <div className="divider"></div>
-      <div>{data?.success && <CardContainer data={data?.data} />}</div>
+      <div>{data?.success && <CardPositionsContainer data={data?.data} />}</div>
     </div>
   );
 };

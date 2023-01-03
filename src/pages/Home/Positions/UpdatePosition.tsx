@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FiAlertCircle } from 'react-icons/fi';
 import { useParams } from 'react-router-dom';
 import { BackButton } from '../../../components/ui/BackButton';
@@ -26,6 +26,13 @@ export const UpdatePosition = () => {
     },
     {}
   );
+
+  useEffect(() => {
+    if (dataGet?.data) {
+      setTitle(dataGet?.data.title);
+      setDescription(dataGet.data.description);
+    }
+  }, [dataGet]);
 
   const mutationFn = async (options: Object) => {
     const response = await reclutaAPI.positions('update', {
@@ -98,17 +105,17 @@ export const UpdatePosition = () => {
               placeholder="Título"
               className="input input-bordered w-full"
               onChange={(e) => setTitle(e.target.value)}
-              value={dataGet?.data.title}
+              value={title}
             />
             <textarea
               className="textarea textarea-bordered"
               placeholder="Descripción"
               onChange={(e) => setDescription(e.target.value)}
-              value={dataGet?.data.description}
+              value={description}
             ></textarea>
             {warningRendering()}
-            <button className="btn" onClick={createPositionHandler}>
-              Agregar
+            <button className="btn btn-primary" onClick={createPositionHandler}>
+              Guardar
             </button>
           </form>
         </div>
