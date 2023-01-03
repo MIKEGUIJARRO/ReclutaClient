@@ -3,11 +3,13 @@ import { FiPlusCircle } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { CardPosition } from './CardPosition';
 
-interface CardContainer {
+interface CardPositionsContainer {
   data: CardPosition[];
 }
 
-export const CardContainer: FC<CardContainer> = ({ data }) => {
+export const CardPositionsContainer: FC<CardPositionsContainer> = ({
+  data,
+}) => {
   const transformCreatedAt = (createdAt: string) => {
     const today = new Date();
     const date = new Date(createdAt);
