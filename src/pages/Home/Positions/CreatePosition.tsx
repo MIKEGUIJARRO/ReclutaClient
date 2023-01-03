@@ -1,6 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import { FiAlertCircle } from 'react-icons/fi';
+import { FiAlertCircle, FiEdit, FiPlusCircle, FiXCircle } from 'react-icons/fi';
+import {
+  CreateStages,
+  PositionStages,
+} from '../../../components/pages/positions/CreateStages';
 import { BackButton } from '../../../components/ui/BackButton';
 import { Toast } from '../../../components/ui/Toast';
 import { ReclutaAPI } from '../../../services/reclutaAPI';
@@ -8,6 +12,13 @@ import { ReclutaAPI } from '../../../services/reclutaAPI';
 export const CreatePosition = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [stages, setStages] = useState<PositionStages>([
+    { name: '🏁 Registro candidato', isEditing: false },
+    { name: '🎤 Entrevista inicial', isEditing: false },
+    { name: '⚒️ Entrevista técnica', isEditing: false },
+    { name: '✨ Entrevista final', isEditing: false },
+    { name: '💰 Propuesta laboral', isEditing: false },
+  ]);
   const [warning, setWarning] = useState<null | string>(null);
 
   const mutationFn = async (options: Object) => {
@@ -30,7 +41,8 @@ export const CreatePosition = () => {
     if (!validateForm(title, description)) {
       return;
     }
-    createPosition({ title, description });
+    const stagesBody = stages.map((stage) => stage.name);
+    createPosition({ title, description, stages: stagesBody });
   };
 
   const validateForm = (title: string, description: string) => {
@@ -39,6 +51,9 @@ export const CreatePosition = () => {
       return false;
     } else if (description.length < 5) {
       setWarning('Descripción demasiado corta');
+      return false;
+    } else if (stages.length < 2) {
+      setWarning('Necesitas al menos 2 etapas en tu proceso');
       return false;
     }
     setWarning(null);
@@ -70,7 +85,8 @@ export const CreatePosition = () => {
       </div>
       <div className="divider"></div>
 
-      <div className="space-y-4">
+      <div className="flex flex-col space-y-8">
+        <h2 className="font-bold text-2xl">Información General</h2>
         <div>
           <form className="form-control w-full max-w-2xl space-y-4">
             <input
@@ -84,12 +100,15 @@ export const CreatePosition = () => {
               placeholder="Descripción"
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
-            {warningRendering()}
-            <button className="btn" onClick={createPositionHandler}>
-              Agregar
-            </button>
           </form>
         </div>
+        <h2 className="font-bold text-2xl">Etapas Del Proceso</h2>
+        <CreateStages stages={stages} setStages={setStages} />
+        {warningRendering()}
+
+        <button className="btn btn-primary" onClick={createPositionHandler}>
+          Agregar
+        </button>
       </div>
     </div>
   );
