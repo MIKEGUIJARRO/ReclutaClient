@@ -111,7 +111,6 @@ export class ReclutaAPI {
         };
       },
     },
-
     positions: {
       findOne: (options: GenericOptions): Endpoint => {
         return {
@@ -147,6 +146,45 @@ export class ReclutaAPI {
         return {
           method: 'DELETE',
           resource: `/api/v1/positions/${options.id}`,
+          params: {},
+        };
+      },
+    },
+    candidates: {
+      findOne: (options: GenericOptions): Endpoint => {
+        return {
+          method: 'GET',
+          resource: `/api/v1/candidates/${options.id}`,
+          params: {},
+        };
+      },
+      findAll: (options: GenericOptions): Endpoint => {
+        return {
+          method: 'GET',
+          resource: `/api/v1/candidates`,
+          params: {},
+        };
+      },
+      create: (options: GenericOptions): Endpoint => {
+        return {
+          method: 'POST',
+          resource: `/api/v1/candidates`,
+          params: {},
+          body: options.body,
+        };
+      },
+      update: (options: GenericOptions): Endpoint => {
+        return {
+          method: 'PUT',
+          resource: `/api/v1/candidates/${options.id}`,
+          params: {},
+          body: options.body,
+        };
+      },
+      delete: (options: GenericOptions): Endpoint => {
+        return {
+          method: 'DELETE',
+          resource: `/api/v1/candidates/${options.id}`,
           params: {},
         };
       },
@@ -209,6 +247,15 @@ export class ReclutaAPI {
     options: GenericOptions
   ) {
     const existingEndpoint = this.endpoints.positions[method];
+    const endpoint = existingEndpoint(options);
+    return await this.fetchData(endpoint);
+  }
+
+  async candidates(
+    method: 'findOne' | 'findAll' | 'create' | 'update' | 'delete',
+    options: GenericOptions
+  ) {
+    const existingEndpoint = this.endpoints.candidates[method];
     const endpoint = existingEndpoint(options);
     return await this.fetchData(endpoint);
   }
