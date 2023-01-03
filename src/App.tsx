@@ -6,7 +6,7 @@ import { Signup } from './pages/Auth/Signup';
 import { Login } from './pages/Auth/Login';
 import { Home } from './pages/Home/Home';
 import { Positions } from './pages/Home/Positions/Positions';
-import { Candidates } from './pages/Home/Candidates';
+import { Candidates } from './pages/Home/Candidates/Candidates';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './constants/queryClient';
 import { ProtectedRoute } from './utils/ProtectedRoute';
@@ -18,6 +18,9 @@ import { CreatePosition } from './pages/Home/Positions/CreatePosition';
 import { CompanyRegistration } from './pages/Auth/CompanyRegistration';
 import { Position } from './pages/Home/Positions/Position';
 import { UpdatePosition } from './pages/Home/Positions/UpdatePosition';
+import { Candidate } from './pages/Home/Candidates/Candidate';
+import { UpdateCandidate } from './pages/Home/Candidates/UpdateCandidate';
+import { CreateCandidate } from './pages/Home/Candidates/CreateCandidate';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -36,6 +39,7 @@ const router = createBrowserRouter([
             index: true,
             element: <Welcome />,
           },
+          // Positions
           {
             path: 'positions',
             element: <Positions />,
@@ -52,9 +56,22 @@ const router = createBrowserRouter([
             path: 'positions/update/:positionId',
             element: <UpdatePosition />,
           },
+          //Candidates
           {
             path: 'candidates',
             element: <Candidates />,
+          },
+          {
+            path: 'candidates/:candidateId',
+            element: <Candidate />,
+          },
+          {
+            path: 'candidates/create',
+            element: <CreateCandidate />,
+          },
+          {
+            path: 'candidates/update/:candidateId',
+            element: <UpdateCandidate />,
           },
           {
             path: 'configuration',
