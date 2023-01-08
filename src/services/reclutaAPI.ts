@@ -189,6 +189,45 @@ export class ReclutaAPI {
         };
       },
     },
+    candidatesStatus: {
+      findOne: (options: GenericOptions): Endpoint => {
+        return {
+          method: 'GET',
+          resource: `/api/v1/candidates-status/${options.id}`,
+          params: {},
+        };
+      },
+      findAll: (options: GenericOptions): Endpoint => {
+        return {
+          method: 'GET',
+          resource: `/api/v1/candidates-status`,
+          params: {},
+        };
+      },
+      create: (options: GenericOptions): Endpoint => {
+        return {
+          method: 'POST',
+          resource: `/api/v1/candidates-status`,
+          params: {},
+          body: options.body,
+        };
+      },
+      update: (options: GenericOptions): Endpoint => {
+        return {
+          method: 'PUT',
+          resource: `/api/v1/candidates-status/${options.id}`,
+          params: {},
+          body: options.body,
+        };
+      },
+      delete: (options: GenericOptions): Endpoint => {
+        return {
+          method: 'DELETE',
+          resource: `/api/v1/candidates-status/${options.id}`,
+          params: {},
+        };
+      },
+    },
   };
   headers: HeadersInit = {
     'Content-Type': 'application/json',
@@ -256,6 +295,14 @@ export class ReclutaAPI {
     options: GenericOptions
   ) {
     const existingEndpoint = this.endpoints.candidates[method];
+    const endpoint = existingEndpoint(options);
+    return await this.fetchData(endpoint);
+  }
+  async candidatesStatus(
+    method: 'findOne' | 'findAll' | 'create' | 'update' | 'delete',
+    options: GenericOptions
+  ) {
+    const existingEndpoint = this.endpoints.candidatesStatus[method];
     const endpoint = existingEndpoint(options);
     return await this.fetchData(endpoint);
   }
