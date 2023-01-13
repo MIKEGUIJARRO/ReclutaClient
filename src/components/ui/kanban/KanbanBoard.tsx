@@ -58,7 +58,7 @@ export const KanbanBoard: FC<KanbanBoard> = ({
 }) => {
   return (
     <DragDropContext onDragEnd={onDragEndHandler}>
-      <div className="flex gap-8 overflow-auto py-8">
+      <div className="flex justify-start items-start gap-8 overflow-auto py-8">
         {kanbanData &&
           kanbanData.columnOrder.map((columnId) => {
             const column = kanbanData.columns[columnId];
@@ -71,7 +71,7 @@ export const KanbanBoard: FC<KanbanBoard> = ({
                 column={column}
                 items={items}
                 kanbanCardContent={kanbanCardContent}
-                kanbanColumnEndButton={kanbanColumnOptionsButton}
+                kanbanColumnEndButton={kanbanColumnEndButton}
                 kanbanColumnOptionsButton={kanbanColumnOptionsButton}
               />
             );
