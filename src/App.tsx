@@ -21,6 +21,7 @@ import { UpdatePosition } from './pages/Home/Positions/UpdatePosition';
 import { Candidate } from './pages/Home/Candidates/Candidate';
 import { UpdateCandidate } from './pages/Home/Candidates/UpdateCandidate';
 import { CreateCandidate } from './pages/Home/Candidates/CreateCandidate';
+import { KanbanPosition } from './pages/Home/Positions/Kanban/KanbanPosition';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
             element: <Position />,
           },
           {
+            path: 'positions/:positionId/kanban',
+            element: <KanbanPosition />,
+          },
+          {
             path: 'positions/create',
             element: <CreatePosition />,
           },
@@ -56,6 +61,7 @@ const router = createBrowserRouter([
             path: 'positions/update/:positionId',
             element: <UpdatePosition />,
           },
+
           //Candidates
           {
             path: 'candidates',
