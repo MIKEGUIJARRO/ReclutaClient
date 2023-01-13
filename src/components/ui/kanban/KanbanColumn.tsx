@@ -32,11 +32,11 @@ export const KanbanColumn = <T extends any>({
       className="flex flex-col justify-start items-stretch bg-base-200 rounded-xl p-4 transition-all duration-1000"
     >
       {/* Title */}
-      <div className="h-[2em] flex justify-between items-center">
+      <div className="h-[3em] flex justify-between items-center">
         <h2 className="font-bold">{column.title}</h2>
         {kanbanColumnOptionsButton && (
           <div>
-            {React.cloneElement(kanbanColumnEndButton, { id: column.id })}
+            {React.cloneElement(kanbanColumnOptionsButton, { id: column.id })}
           </div>
         )}
       </div>
