@@ -22,6 +22,7 @@ import { Candidate } from './pages/Home/Candidates/Candidate';
 import { UpdateCandidate } from './pages/Home/Candidates/UpdateCandidate';
 import { CreateCandidate } from './pages/Home/Candidates/CreateCandidate';
 import { KanbanPosition } from './pages/Home/Positions/Kanban/KanbanPosition';
+import { GlobalModalProvider } from './context/GlobalModalContext';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -120,7 +121,9 @@ const router = createBrowserRouter([
 export const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <GlobalModalProvider>
+        <RouterProvider router={router} />
+      </GlobalModalProvider>
     </QueryClientProvider>
   );
 };
