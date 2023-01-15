@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 export interface GlobalModalContent {
@@ -18,17 +18,31 @@ export const GlobalModal: FC<GlobalModal> = ({
 }) => {
   const modalRootEl = document.querySelector('#modal-root');
 
+  const [isModalClosed, setIsModalClosed] = useState(false);
+
   const renderContentModal = () => {
-    if (React.isValidElement(contentModal)) {
+    if (isModalClosed && !isOpen) {
+      return null;
+    } else if (React.isValidElement(contentModal)) {
       return React.cloneElement(contentModal, { hideModal, showModal });
     }
   };
+
+  const transitionEndHandler = () => {
+    if (!isOpen) {
+      setIsModalClosed(true);
+    } else {
+      setIsModalClosed(false);
+    }
+  };
+
   if (modalRootEl) {
     return createPortal(
       <div className="">
         <div
           className={`modal cursor-pointer ${isOpen ? 'modal-open' : ''}`}
-          onClick={() => hideModal()}
+          onTransitionEnd={() => transitionEndHandler()}
+          onClick={hideModal}
         >
           <div
             className="modal-box cursor-default"
@@ -36,7 +50,7 @@ export const GlobalModal: FC<GlobalModal> = ({
               e.stopPropagation();
             }}
           >
-            {renderContentModal()}
+            <div>{renderContentModal()}</div>
           </div>
         </div>
       </div>,
