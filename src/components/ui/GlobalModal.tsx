@@ -30,7 +30,9 @@ export const GlobalModal: FC<GlobalModal> = ({
 
   const transitionEndHandler = () => {
     if (!isOpen) {
-      setIsModalClosed(true);
+      setTimeout(() => {
+        setIsModalClosed(true);
+      }, 200);
     } else {
       setIsModalClosed(false);
     }
