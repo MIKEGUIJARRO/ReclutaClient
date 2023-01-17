@@ -18,6 +18,7 @@ interface KanbanContext<M> {
   dropItem(selectedItemState: SelectedItemState): void;
   loadData(kanbanData: KanbanData<M>): void;
   deleteItem(itemId: string, columnId: string): void;
+  addItem(itemId: string, columnId: string, item: any): void;
 }
 
 export const KanbanContext = (<T extends any>() => {
@@ -36,6 +37,10 @@ type Action =
   | {
       type: 'DELETE_ITEM';
       payload: { itemId: string; columnId: string };
+    }
+  | {
+      type: 'ADD_ITEM';
+      payload: { itemId: string; item: any; columnId: string };
     };
 
 const kanbanReducer: Reducer<KanbanData<any>, Action> = (state, action) => {
@@ -87,19 +92,32 @@ const kanbanReducer: Reducer<KanbanData<any>, Action> = (state, action) => {
     case 'LOAD':
       return { ...action.payload };
     case 'DELETE_ITEM':
-      const column = state.columns[action.payload.columnId];
+      const columnDeleteItem = state.columns[action.payload.columnId];
       let index: number;
-      const itemIdIndex = column.itemIds.findIndex(
+      const itemIdIndex = columnDeleteItem.itemIds.findIndex(
         (itemId) => itemId === action.payload.itemId
       );
-      column.itemIds.splice(itemIdIndex, 1);
+      columnDeleteItem.itemIds.splice(itemIdIndex, 1);
 
       return {
         ...state,
         columns: {
           ...state.columns,
-          [action.payload.columnId]: column,
+          [action.payload.columnId]: columnDeleteItem,
         },
+      };
+    case 'ADD_ITEM':
+      const columnAddItem = state.columns[action.payload.columnId];
+      columnAddItem.itemIds.push(action.payload.itemId);
+      const itemsAddItem = state.items;
+      itemsAddItem[action.payload.itemId] = action.payload.item;
+      return {
+        ...state,
+        columns: {
+          ...state.columns,
+          [action.payload.columnId]: columnAddItem,
+        },
+        items: itemsAddItem,
       };
 
     default:
@@ -119,6 +137,13 @@ export const KanbanProvider: FC<Props> = ({ children }) => {
   };
   const [state, dispatch] = useReducer(kanbanReducer, initialData);
 
+  const addItem = (itemId: string, columnId: string, item: any): void => {
+    dispatch({
+      type: 'ADD_ITEM',
+      payload: { itemId: itemId, columnId: columnId, item: item },
+    });
+  };
+
   const deleteItem = (itemId: string, columnId: string): void => {
     dispatch({
       type: 'DELETE_ITEM',
@@ -136,7 +161,13 @@ export const KanbanProvider: FC<Props> = ({ children }) => {
 
   return (
     <KanbanContext.Provider
-      value={{ dropItem, loadData, deleteItem, kanbanState: { ...state } }}
+      value={{
+        dropItem,
+        loadData,
+        deleteItem,
+        addItem,
+        kanbanState: { ...state },
+      }}
     >
       {children}
     </KanbanContext.Provider>
