@@ -1,6 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import { FiAlertCircle, FiEdit, FiPlusCircle, FiXCircle } from 'react-icons/fi';
+import {
+  FiAlertCircle,
+  FiEdit,
+  FiInfo,
+  FiPlusCircle,
+  FiXCircle,
+} from 'react-icons/fi';
 import {
   CreateStages,
   PositionStages,
@@ -79,7 +85,7 @@ export const CreatePosition = () => {
         successMessage={data?.success ? 'Posición creada' : null}
         errorMessage={error ? 'Error al crear posición' : null}
       />
-      <div className="flex gap-2">
+      <div className="flex items-center gap-2">
         <BackButton />
         <h1 className="font-bold text-4xl">Agregar Posición</h1>
       </div>
@@ -102,7 +108,18 @@ export const CreatePosition = () => {
             ></textarea>
           </form>
         </div>
-        <h2 className="font-bold text-2xl">Etapas Del Proceso</h2>
+        <div className="flex items-center gap-2">
+          <h2 className="font-bold text-2xl">Etapas Del Proceso</h2>
+          <div
+            className="tooltip"
+            data-tip="Una vez guardadas las etapas del proces, no podras editarlas. 🚨"
+          >
+            <button className="flex items-center justify-center">
+              <FiInfo />
+            </button>
+          </div>
+        </div>
+
         <CreateStages stages={stages} setStages={setStages} />
         {warningRendering()}
 
