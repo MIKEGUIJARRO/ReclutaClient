@@ -69,7 +69,7 @@ export const CreateCandidate = () => {
         successMessage={data?.success ? 'Candidato creado' : null}
         errorMessage={error ? 'Error al crear candidato' : null}
       />
-      <div className="flex gap-2">
+      <div className="flex items-center gap-2">
         <BackButton />
         <h1 className="font-bold text-4xl">Agregar Candidato</h1>
       </div>
