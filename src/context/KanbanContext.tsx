@@ -17,6 +17,7 @@ interface KanbanContext<M> {
   kanbanState: KanbanData<M> | null;
   dropItem(selectedItemState: SelectedItemState): void;
   loadData(kanbanData: KanbanData<M>): void;
+  reloadData(kanbanDataCb: () => Promise<KanbanData<any>>): void;
   deleteItem(itemId: string, columnId: string): void;
   addItem(itemId: string, columnId: string, item: any): void;
 }
@@ -159,6 +160,12 @@ export const KanbanProvider: FC<Props> = ({ children }) => {
     dispatch({ type: 'LOAD', payload: kanbanData });
   };
 
+  const reloadData = async (kanbanDataCb: () => Promise<KanbanData<any>>) => {
+    console.log('reloadData called');
+    const kanbanData = await kanbanDataCb();
+    dispatch({ type: 'LOAD', payload: kanbanData });
+  };
+
   return (
     <KanbanContext.Provider
       value={{
@@ -166,6 +173,7 @@ export const KanbanProvider: FC<Props> = ({ children }) => {
         loadData,
         deleteItem,
         addItem,
+        reloadData,
         kanbanState: { ...state },
       }}
     >
