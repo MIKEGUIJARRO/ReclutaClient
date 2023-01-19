@@ -41,7 +41,7 @@ export const Candidate = () => {
   return (
     <div>
       <Toast successMessage={isSuccessDelete ? 'Candidato eliminado' : null} />
-      <div className="flex gap-2">
+      <div className="flex items-center gap-2">
         <BackButton />
         <h1 className="font-bold text-4xl">
           {data?.data.firstName +
