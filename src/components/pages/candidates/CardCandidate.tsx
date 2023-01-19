@@ -6,7 +6,8 @@ export interface CardCandidate {
   id: string;
   firstName: string;
   middleName: string;
-  lastName: number | string;
+  lastName: string;
+  positions: number | string;
   createdAt: string;
 }
 
@@ -15,6 +16,7 @@ export const CardCandidate: FC<CardCandidate> = ({
   firstName,
   lastName,
   middleName,
+  positions,
   createdAt,
 }) => {
   return (
@@ -23,9 +25,7 @@ export const CardCandidate: FC<CardCandidate> = ({
         <div className="flex flex-col">
           <div className="flex items-center justify-between">
             <Link className="link link-hover" to={`/home/candidates/${id}`}>
-              <h2 className="card-title line-clamp-">
-                {firstName + ' ' + lastName}
-              </h2>
+              <h2 className="card-title line-clamp-">{firstName}</h2>
             </Link>
             <Link
               to={`/home/candidates/update/${id}`}
@@ -44,7 +44,7 @@ export const CardCandidate: FC<CardCandidate> = ({
         <div className="card-actions justify-between items-center">
           <button className="btn btn-ghost btn-md gap-2">
             <FiClipboard size={24} />
-            <span>{0}</span>
+            <span>{positions}</span>
           </button>
         </div>
       </div>
