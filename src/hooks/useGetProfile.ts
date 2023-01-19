@@ -8,8 +8,7 @@ export const useGetProfile = () => {
     async () => {
       const response = await reclutaApi.auth('getProfile');
       return response;
-    },
-    { staleTime: 1000 * 60 * 30 }
+    }
   );
   return { isLoading, error, data, refetch };
 };
