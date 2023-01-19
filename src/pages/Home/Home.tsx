@@ -81,13 +81,13 @@ export const Home = () => {
                     <span className="font-semibold">Candidatos</span>
                   </Link>
                 </li>
-                <div className="divider py-4"></div>
+                {/* <div className="divider py-4"></div>
                 <li>
                   <Link to={'configuration'}>
                     <FiSettings size={24} />
                     <span className="font-semibold">Configuración</span>
                   </Link>
-                </li>
+                </li> */}
               </ul>
               <ul>
                 <li>
