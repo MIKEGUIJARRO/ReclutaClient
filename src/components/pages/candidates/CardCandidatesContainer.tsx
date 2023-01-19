@@ -24,7 +24,8 @@ export const CardCandidatesContainer: FC<CardCandidatesContainer> = ({
     id: string,
     firstName: string,
     middleName: string,
-    lastName: number | string,
+    lastName: string,
+    positions: number | string,
     createdAt: string
   ) => {
     const card = (
@@ -34,6 +35,7 @@ export const CardCandidatesContainer: FC<CardCandidatesContainer> = ({
         firstName={firstName}
         middleName={middleName}
         lastName={lastName}
+        positions={positions}
         createdAt={transformCreatedAt(createdAt)}
       />
     );
@@ -65,6 +67,7 @@ export const CardCandidatesContainer: FC<CardCandidatesContainer> = ({
           card.firstName,
           card.middleName,
           card.lastName,
+          card.positions,
           card.createdAt
         )
       )}
