@@ -34,7 +34,7 @@ export const CardPositionsContainer: FC<CardPositionsContainer> = ({
         id={id}
         title={title}
         description={description}
-        candidates={0}
+        candidates={candidates}
         createdAt={transformCreatedAt(createdAt)}
       />
     );
