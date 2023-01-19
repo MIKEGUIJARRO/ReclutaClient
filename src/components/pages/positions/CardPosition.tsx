@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { FiClock, FiEdit, FiUsers } from 'react-icons/fi';
+import { FiClock, FiEdit, FiUsers, FiTrello } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 export interface CardPosition {
@@ -40,11 +40,17 @@ export const CardPosition: FC<CardPosition> = ({
           </div>
         </div>
         <p className="line-clamp-3">{description}</p>
-        <div className="card-actions justify-between items-center">
+        <div className="card-actions justify-start items-center">
           <button className="btn btn-ghost btn-md gap-2">
             <FiUsers size={24} />
             <span>{candidates}</span>
           </button>
+          <Link
+            to={`/home/positions/${id}/kanban`}
+            className="btn btn-ghost btn-md gap-2"
+          >
+            <FiTrello size={24} />
+          </Link>
         </div>
       </div>
     </div>
