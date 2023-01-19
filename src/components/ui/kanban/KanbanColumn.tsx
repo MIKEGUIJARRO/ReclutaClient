@@ -58,6 +58,7 @@ export const KanbanColumn = <T extends any>({
                   item={item}
                   index={index}
                   kanbanCardContent={kanbanCardContent}
+                  columnId={column.id}
                 />
               ))}
               {provided.placeholder}

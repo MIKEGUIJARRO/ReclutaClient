@@ -5,6 +5,7 @@ import { Draggable } from 'react-beautiful-dnd';
 interface KanbanCard {
   item: Item<any>;
   index: number;
+  columnId: string;
   kanbanCardContent: ReactElement<KanbanCardContent<any>>;
 }
 
@@ -12,6 +13,7 @@ export const KanbanCard: FC<KanbanCard> = ({
   item,
   index,
   kanbanCardContent,
+  columnId,
 }) => {
   const renderContent = () => {
     if (React.isValidElement(kanbanCardContent)) {
@@ -19,6 +21,7 @@ export const KanbanCard: FC<KanbanCard> = ({
         id: item.id,
         index: index,
         content: item.content,
+        columnId: columnId,
       });
     }
   };

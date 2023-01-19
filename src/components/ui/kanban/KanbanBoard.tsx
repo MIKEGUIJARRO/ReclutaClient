@@ -38,6 +38,7 @@ export interface KanbanColumnEndButton {
 export interface KanbanCardContent<T> {
   id?: string;
   index?: number;
+  columnId?: string;
   content?: T;
 }
 
