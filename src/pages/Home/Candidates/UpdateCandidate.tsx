@@ -97,7 +97,7 @@ export const UpdateCandidate = () => {
         successMessage={dataUpdate?.success ? 'Posición editada' : null}
         errorMessage={errorUpdate ? 'Error al editar posición' : null}
       />
-      <div className="flex gap-2">
+      <div className="flex items-center gap-2">
         <BackButton />
         <h1 className="font-bold text-4xl">Editar Candidato</h1>
       </div>
