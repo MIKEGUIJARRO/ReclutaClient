@@ -1,5 +1,5 @@
 import { ENDPOINTS } from '../constants/ENDPOINTS';
-import { GenericOptions } from './GenericOptions';
+import { GenericOptions, Param } from './GenericOptions';
 
 interface User {
   firstName: string;
@@ -9,14 +9,10 @@ interface User {
   password: string;
 }
 
-type Params = {
-  [key: string]: string | number;
-};
-
 interface Endpoint {
   method: 'GET' | 'POST' | 'PUT' | 'DELETE';
   resource: string;
-  params: Params;
+  params: Param;
   body?: Object;
 }
 
@@ -28,8 +24,8 @@ interface GenericResponse {
 }
 
 export class ReclutaAPI {
-  HOSTNAME_URL: string = ENDPOINTS.reclutaHostNameURL;
-  endpoints = {
+  private HOSTNAME_URL: string = ENDPOINTS.reclutaHostNameURL;
+  private endpoints = {
     auth: {
       loginLocal: (options: User | Object): Endpoint => {
         return {
@@ -162,7 +158,7 @@ export class ReclutaAPI {
         return {
           method: 'GET',
           resource: `/api/v1/candidates`,
-          params: {},
+          params: { ...options.params },
         };
       },
       create: (options: GenericOptions): Endpoint => {
@@ -191,55 +187,105 @@ export class ReclutaAPI {
     },
     candidatesStatus: {
       findOne: (options: GenericOptions): Endpoint => {
-        return {
+        const endpoint: Endpoint = {
           method: 'GET',
           resource: `/api/v1/candidates-status/${options.id}`,
           params: {},
         };
+        if (options.params) {
+          endpoint.params = { ...options.params };
+        }
+        return endpoint;
       },
       findAll: (options: GenericOptions): Endpoint => {
-        return {
+        const endpoint: Endpoint = {
           method: 'GET',
           resource: `/api/v1/candidates-status`,
           params: {},
         };
+        if (options.params) {
+          endpoint.params = { ...options.params };
+        }
+        return endpoint;
       },
       create: (options: GenericOptions): Endpoint => {
-        return {
+        const endpoint: Endpoint = {
           method: 'POST',
           resource: `/api/v1/candidates-status`,
           params: {},
           body: options.body,
         };
+        if (options.params) {
+          endpoint.params = { ...options.params };
+        }
+
+        return endpoint;
+      },
+      bulkCreate: (options: GenericOptions): Endpoint => {
+        const endpoint: Endpoint = {
+          method: 'POST',
+          resource: `/api/v1/candidates-status/bulk`,
+          params: {},
+          body: options.body,
+        };
+        if (options.params) {
+          endpoint.params = { ...options.params };
+        }
+
+        return endpoint;
       },
       update: (options: GenericOptions): Endpoint => {
-        return {
+        const endpoint: Endpoint = {
           method: 'PUT',
           resource: `/api/v1/candidates-status/${options.id}`,
           params: {},
           body: options.body,
         };
+        if (options.params) {
+          endpoint.params = { ...options.params };
+        }
+        return endpoint;
       },
       delete: (options: GenericOptions): Endpoint => {
-        return {
+        const endpoint: Endpoint = {
           method: 'DELETE',
           resource: `/api/v1/candidates-status/${options.id}`,
           params: {},
         };
+        if (options.params) {
+          endpoint.params = { ...options.params };
+        }
+        return endpoint;
+      },
+    },
+    kanbanPosition: {
+      findOne: (options: GenericOptions): Endpoint => {
+        const endpoint: Endpoint = {
+          method: 'GET',
+          resource: `/api/v1/positions/${options.id}/kanban`,
+          params: {},
+        };
+        if (options.params) {
+          endpoint.params = { ...options.params };
+        }
+
+        return endpoint;
       },
     },
   };
-  headers: HeadersInit = {
+
+  private headers: HeadersInit = {
     'Content-Type': 'application/json',
     Accept: 'application/json',
   };
+
   constructor() {}
 
   private async fetchData(endpoint: Endpoint) {
     try {
       const url = new URL(this.HOSTNAME_URL + endpoint.resource);
       if (endpoint.params) {
-        for (const key in endpoint.params) {
+        for (let key in endpoint.params) {
           url.searchParams.append(key, String(endpoint.params[key]));
         }
       }
@@ -298,12 +344,27 @@ export class ReclutaAPI {
     const endpoint = existingEndpoint(options);
     return await this.fetchData(endpoint);
   }
+
   async candidatesStatus(
-    method: 'findOne' | 'findAll' | 'create' | 'update' | 'delete',
+    method:
+      | 'findOne'
+      | 'findAll'
+      | 'create'
+      | 'bulkCreate'
+      | 'update'
+      | 'delete',
     options: GenericOptions
   ) {
     const existingEndpoint = this.endpoints.candidatesStatus[method];
     const endpoint = existingEndpoint(options);
     return await this.fetchData(endpoint);
   }
+
+  async kanbanPosition(method: 'findOne', options: GenericOptions) {
+    const existingEndpoint = this.endpoints.kanbanPosition[method];
+    const endpoint = existingEndpoint(options);
+    return await this.fetchData(endpoint);
+  }
 }
+
+const reclutaAPI = new ReclutaAPI();
