@@ -279,7 +279,10 @@ export class ReclutaAPI {
     Accept: 'application/json',
   };
 
-  constructor() {}
+  constructor() {
+    console.log('Endpoints');
+    console.log(this.HOSTNAME_URL);
+  }
 
   private async fetchData(endpoint: Endpoint) {
     try {
