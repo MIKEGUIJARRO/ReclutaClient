@@ -53,9 +53,7 @@ export const CardContent: FC<KanbanCardContent<ContentDataPosition>> = ({
   return (
     <div className="">
       <div className="flex justify-between items-center gap-2">
-        <p className="">
-          {id} {content?.firstName}
-        </p>
+        <p className="">{content?.firstName}</p>
         <div
           className={`dropdown dropdown-end ${
             isOptionMenuOpen ? 'dropdown-open' : ''
@@ -75,7 +73,7 @@ export const CardContent: FC<KanbanCardContent<ContentDataPosition>> = ({
         </div>
       </div>
       <div className="flex justify-end gap-2">
-        <button className="btn btn-ghost btn-circle btn-sm">
+        <button className="hidden btn btn-ghost btn-circle btn-sm">
           <FiMessageCircle size={18} />
         </button>
       </div>
