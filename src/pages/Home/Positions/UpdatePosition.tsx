@@ -4,14 +4,13 @@ import { FiAlertCircle } from 'react-icons/fi';
 import { useParams } from 'react-router-dom';
 import { BackButton } from '../../../components/ui/BackButton';
 import { Toast } from '../../../components/ui/Toast';
-import { ReclutaAPI } from '../../../services/reclutaAPI';
+import { reclutaAPI } from '../../../services/recluta/ReclutaAPI';
 
 export const UpdatePosition = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [warning, setWarning] = useState<null | string>(null);
   const { positionId } = useParams();
-  const reclutaAPI = new ReclutaAPI();
   const {
     isLoading: isLoadingGet,
     error: errorGet,
@@ -19,7 +18,7 @@ export const UpdatePosition = () => {
   } = useQuery(
     [`company/${positionId}`],
     async () => {
-      const response = await reclutaAPI.positions('findOne', {
+      const response = await reclutaAPI.positions.findOne({
         id: positionId,
       });
       return response;
@@ -35,7 +34,7 @@ export const UpdatePosition = () => {
   }, [dataGet]);
 
   const mutationFn = async (options: Object) => {
-    const response = await reclutaAPI.positions('update', {
+    const response = await reclutaAPI.positions.update({
       body: options,
       id: positionId,
     });
