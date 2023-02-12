@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { DropResult, ResponderProvided } from 'react-beautiful-dnd';
 import { useKanban } from '../../../../hooks/useKanban';
 import { useGlobalModalContext } from '../../../../hooks/useModalContext';
-import { ReclutaAPI } from '../../../../services/reclutaAPI';
+import { reclutaAPI } from '../../../../services/recluta/ReclutaAPI';
 import { KanbanBoard, KanbanData } from '../../../ui/kanban/KanbanBoard';
 import { AddCandidateModal } from './AddCandidateModal';
 import { AddItemButton } from './AddItemButton';
@@ -45,9 +45,8 @@ export const PositionKanbanWrapper: FC<PositionKanbanWrapper> = ({
     positionId: string,
     index: number
   ) => {
-    const reclutaAPI = new ReclutaAPI();
-    reclutaAPI
-      .candidatesStatus('update', {
+    reclutaAPI.candidatesStatus
+      .update({
         id: id,
         body: { stage: stage, index: index },
         params: {
