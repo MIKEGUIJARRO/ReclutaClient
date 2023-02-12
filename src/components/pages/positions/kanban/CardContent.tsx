@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { FC, useEffect, useState } from 'react';
 import { FiMessageCircle, FiMoreHorizontal } from 'react-icons/fi';
 import { useKanban } from '../../../../hooks/useKanban';
-import { ReclutaAPI } from '../../../../services/reclutaAPI';
+import { reclutaAPI } from '../../../../services/recluta/ReclutaAPI';
 import { KanbanCardContent } from '../../../ui/kanban/KanbanBoard';
 import { ContentDataPosition } from './PositionKanbanWrapper';
 
@@ -20,9 +20,8 @@ export const CardContent: FC<KanbanCardContent<ContentDataPosition>> = ({
   };
 
   const mutationFn = async () => {
-    const reclutaAPI = new ReclutaAPI();
     if (content) {
-      const response = await reclutaAPI.candidatesStatus('delete', {
+      const response = await reclutaAPI.candidatesStatus.delete({
         id: content.candidateStatusId,
         params: {
           candidateId: content?.candidateId,
