@@ -1,19 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
 import React from 'react';
-import {
-  FiClipboard,
-  FiHome,
-  FiLogOut,
-  FiMenu,
-  FiSettings,
-  FiUsers,
-} from 'react-icons/fi';
+import { FiClipboard, FiHome, FiLogOut, FiMenu, FiUsers } from 'react-icons/fi';
 import { Link, useNavigate } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import { Logo } from '../../components/ui/Logo';
 import { queryClient } from '../../constants/queryClient';
 import { useGetProfile } from '../../hooks/useGetProfile';
-import { ReclutaAPI } from '../../services/reclutaAPI';
+import { reclutaAPI } from '../../services/recluta/ReclutaAPI';
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -21,8 +14,7 @@ export const Home = () => {
   const { data, error, isLoading, refetch } = useGetProfile();
 
   const mutationFn = async () => {
-    const reclutaAPI = new ReclutaAPI();
-    const response = await reclutaAPI.auth('logout');
+    const response = await reclutaAPI.auth.logout({});
     return response;
   };
 
