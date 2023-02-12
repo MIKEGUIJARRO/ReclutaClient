@@ -5,24 +5,23 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { BackButton } from '../../../components/ui/BackButton';
 import { Toast } from '../../../components/ui/Toast';
-import { ReclutaAPI } from '../../../services/reclutaAPI';
+import { GenericOptions } from '../../../services/base/BaseAPIEndpoint';
+import { reclutaAPI } from '../../../services/recluta/ReclutaAPI';
 
 export const Candidate = () => {
   const { candidateId } = useParams();
-  const reclutaAPI = new ReclutaAPI();
   const { data, isLoading, error } = useQuery(
     [`candidates/${candidateId}`],
     async () => {
-      const response = await reclutaAPI.candidates('findOne', {
+      const response = await reclutaAPI.candidates.findOne({
         id: candidateId,
       });
       return response;
     }
   );
 
-  const mutationFn = async (options: Object) => {
-    const reclutaAPI = new ReclutaAPI();
-    const response = await reclutaAPI.candidates('delete', options);
+  const mutationFn = async (options: GenericOptions) => {
+    const response = await reclutaAPI.candidates.delete(options);
     return response;
   };
 
