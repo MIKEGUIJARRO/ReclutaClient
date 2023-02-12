@@ -6,8 +6,8 @@ import { Gradient } from '../../components/ui/Gradient';
 import { Logo } from '../../components/ui/Logo';
 import { queryClient } from '../../constants/queryClient';
 import { useGetCompany } from '../../hooks/useGetCompany';
-import { GenericOptions } from '../../services/GenericOptions';
-import { ReclutaAPI } from '../../services/reclutaAPI';
+import { GenericOptions } from '../../services/base/BaseAPIEndpoint';
+import { reclutaAPI } from '../../services/recluta/ReclutaAPI';
 
 export const CompanyRegistration = () => {
   const [companyName, setCompanyName] = useState('');
@@ -32,8 +32,7 @@ export const CompanyRegistration = () => {
   }, [companyData]);
 
   const mutationFn = async (options: GenericOptions) => {
-    const reclutaAPI = new ReclutaAPI();
-    const response = await reclutaAPI.company('create', options);
+    const response = await reclutaAPI.company.create(options);
     return response;
   };
 
