@@ -13,7 +13,7 @@ import {
 } from '../../../components/pages/positions/CreateStages';
 import { BackButton } from '../../../components/ui/BackButton';
 import { Toast } from '../../../components/ui/Toast';
-import { ReclutaAPI } from '../../../services/reclutaAPI';
+import { reclutaAPI } from '../../../services/recluta/ReclutaAPI';
 
 export const CreatePosition = () => {
   const [title, setTitle] = useState('');
@@ -28,8 +28,7 @@ export const CreatePosition = () => {
   const [warning, setWarning] = useState<null | string>(null);
 
   const mutationFn = async (options: Object) => {
-    const reclutaAPI = new ReclutaAPI();
-    const response = await reclutaAPI.positions('create', { body: options });
+    const response = await reclutaAPI.positions.create({ body: options });
     return response;
   };
 
