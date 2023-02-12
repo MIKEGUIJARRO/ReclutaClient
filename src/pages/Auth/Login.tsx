@@ -6,7 +6,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Gradient } from '../../components/ui/Gradient';
 import { Logo } from '../../components/ui/Logo';
 import { queryClient } from '../../constants/queryClient';
-import { ReclutaAPI } from '../../services/reclutaAPI';
+import { GenericOptions } from '../../services/base/BaseAPIEndpoint';
+import { reclutaAPI } from '../../services/recluta/ReclutaAPI';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,9 +15,8 @@ export const Login = () => {
   const [warning, setWarning] = useState<null | string>(null);
   const navigate = useNavigate();
 
-  const mutationFn = async (options: Object) => {
-    const reclutaAPI = new ReclutaAPI();
-    const response = await reclutaAPI.auth('loginLocal', options);
+  const mutationFn = async (options: GenericOptions) => {
+    const response = await reclutaAPI.auth.loginLocal(options);
     return response;
   };
 
@@ -34,7 +34,7 @@ export const Login = () => {
     if (!validateLogin(email, password)) {
       return;
     }
-    loginUser({ email, password });
+    loginUser({ body: { email, password } });
   };
 
   const validateLogin = (email: string, password: string) => {
