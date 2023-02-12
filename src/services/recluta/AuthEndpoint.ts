@@ -1,5 +1,11 @@
 import { BaseAPI, Endpoint, GenericResponse } from '../base/BaseAPI';
-import { GenericOptions } from '../GenericOptions';
+import { GenericOptions } from '../base/BaseAPIEndpoint';
+export interface IAuthEndpoint {
+  loginLocal(options: GenericOptions): Promise<GenericResponse | undefined>;
+  signupLocal(options: GenericOptions): Promise<GenericResponse | undefined>;
+  getProfile(options: GenericOptions): Promise<GenericResponse | undefined>;
+  logout(options: GenericOptions): Promise<GenericResponse | undefined>;
+}
 
 export class AuthEndpoint extends BaseAPI {
   constructor(public endpoint: string, public hostname: string) {
