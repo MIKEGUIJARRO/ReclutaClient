@@ -4,7 +4,7 @@ import { FiAlertCircle } from 'react-icons/fi';
 import { useParams } from 'react-router-dom';
 import { BackButton } from '../../../components/ui/BackButton';
 import { Toast } from '../../../components/ui/Toast';
-import { ReclutaAPI } from '../../../services/reclutaAPI';
+import { reclutaAPI } from '../../../services/recluta/ReclutaAPI';
 
 export const UpdateCandidate = () => {
   const [firstName, setFirstName] = useState('');
@@ -12,7 +12,6 @@ export const UpdateCandidate = () => {
   const [lastName, setLastName] = useState('');
   const [warning, setWarning] = useState<null | string>(null);
   const { candidateId } = useParams();
-  const reclutaAPI = new ReclutaAPI();
   const {
     isLoading: isLoadingGet,
     error: errorGet,
@@ -20,7 +19,7 @@ export const UpdateCandidate = () => {
   } = useQuery(
     [`candidates/${candidateId}`],
     async () => {
-      const response = await reclutaAPI.candidates('findOne', {
+      const response = await reclutaAPI.candidates.findOne({
         id: candidateId,
       });
       return response;
@@ -37,7 +36,7 @@ export const UpdateCandidate = () => {
   }, [dataGet]);
 
   const mutationFn = async (options: Object) => {
-    const response = await reclutaAPI.candidates('update', {
+    const response = await reclutaAPI.candidates.update({
       body: options,
       id: candidateId,
     });
