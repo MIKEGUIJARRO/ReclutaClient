@@ -57,6 +57,8 @@ export const KanbanBoard: FC<KanbanBoard> = ({
   kanbanColumnOptionsButton,
   onDragEndHandler,
 }) => {
+  console.log('Kanban Data');
+  console.log(kanbanData);
   return (
     <DragDropContext onDragEnd={onDragEndHandler}>
       <div className="flex justify-start items-start gap-8 overflow-auto py-8">
