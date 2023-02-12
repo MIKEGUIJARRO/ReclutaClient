@@ -1,5 +1,5 @@
 import { IBaseEndpoint } from '../base/BaseAPIEndpoint';
-import { AuthEndpoint } from './AuthEndpoint';
+import { AuthEndpoint, IAuthEndpoint } from './AuthEndpoint';
 import { ENDPOINTS } from '../../constants/ENDPOINTS';
 import { CompanyEndpoint } from './CompanyEndpoint';
 import { PositionsEndpoint } from './PositionsEndpoint';
@@ -12,10 +12,9 @@ import {
   IKanbanPositionEndpoint,
   KanbanPositionEndpoint,
 } from './KanbanPositionEndpoint';
-import { BaseAPI } from '../base/BaseAPI';
 
 type Endpoints = {
-  auth: BaseAPI;
+  auth: IAuthEndpoint;
   company: IBaseEndpoint;
   positions: IBaseEndpoint;
   candidates: IBaseEndpoint;
