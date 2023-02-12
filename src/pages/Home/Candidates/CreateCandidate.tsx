@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { FiAlertCircle } from 'react-icons/fi';
 import { BackButton } from '../../../components/ui/BackButton';
 import { Toast } from '../../../components/ui/Toast';
-import { ReclutaAPI } from '../../../services/reclutaAPI';
+import { reclutaAPI } from '../../../services/recluta/ReclutaAPI';
 
 export const CreateCandidate = () => {
   const [firstName, setFirstName] = useState('');
@@ -13,8 +13,7 @@ export const CreateCandidate = () => {
   const [warning, setWarning] = useState<null | string>(null);
 
   const mutationFn = async (options: Object) => {
-    const reclutaAPI = new ReclutaAPI();
-    const response = await reclutaAPI.candidates('create', { body: options });
+    const response = await reclutaAPI.candidates.create({ body: options });
     return response;
   };
 
