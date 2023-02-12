@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 
-import { FiAlertCircle, FiCompass, FiXCircle } from 'react-icons/fi';
+import { FiAlertCircle, FiXCircle } from 'react-icons/fi';
 import { Link, useNavigate } from 'react-router-dom';
-import { ReclutaAPI } from '../../services/reclutaAPI';
+import { reclutaAPI } from '../../services/recluta/ReclutaAPI';
 import { useMutation } from '@tanstack/react-query';
 import { queryClient } from '../../constants/queryClient';
 import { Gradient } from '../../components/ui/Gradient';
 import { Logo } from '../../components/ui/Logo';
+import { GenericOptions } from '../../services/base/BaseAPIEndpoint';
 
 export const Signup = () => {
   const [email, setEmail] = useState('');
@@ -17,9 +18,8 @@ export const Signup = () => {
 
   const navigate = useNavigate();
 
-  const mutationFn = async (options: Object) => {
-    const reclutaAPI = new ReclutaAPI();
-    const response = await reclutaAPI.auth('signupLocal', options);
+  const mutationFn = async (options: GenericOptions) => {
+    const response = await reclutaAPI.auth.signupLocal(options);
     return response;
   };
 
@@ -37,7 +37,7 @@ export const Signup = () => {
     if (!validateSignup(email, password, firstName, lastName)) {
       return;
     }
-    signupUser({ email, password, firstName, lastName });
+    signupUser({ body: { email, password, firstName, lastName } });
   };
 
   const validateSignup = (
