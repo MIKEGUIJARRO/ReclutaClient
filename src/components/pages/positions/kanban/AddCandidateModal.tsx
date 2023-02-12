@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { FC, useEffect, useState } from 'react';
 import { useKanban } from '../../../../hooks/useKanban';
-import { ReclutaAPI } from '../../../../services/reclutaAPI';
+import { reclutaAPI } from '../../../../services/recluta/ReclutaAPI';
 import { GlobalModalContent } from '../../../ui/GlobalModal';
 
 interface AddCandidateModal extends GlobalModalContent {
@@ -33,9 +33,10 @@ export const AddCandidateModal: FC<AddCandidateModal> = ({
       checkedCandidates: [],
     });
 
-  const reclutaAPI = new ReclutaAPI();
+  //const reclutaAPI = new ReclutaAPI();
+
   const { data, isLoading, error } = useQuery([`candidates`], async () => {
-    const response = await reclutaAPI.candidates('findAll', {
+    const response = await reclutaAPI.candidates.findAll({
       params: {
         positionIdNot: positionId,
       },
@@ -44,8 +45,7 @@ export const AddCandidateModal: FC<AddCandidateModal> = ({
   });
 
   const mutationFn = async (body: Object) => {
-    const reclutaAPI = new ReclutaAPI();
-    const response = await reclutaAPI.candidatesStatus('bulkCreate', {
+    const response = await reclutaAPI.candidatesStatus.bulkCreate({
       body: body,
     });
     return response;
@@ -96,7 +96,7 @@ export const AddCandidateModal: FC<AddCandidateModal> = ({
   useEffect(() => {
     if (isSuccessCreateCandidateStatus && dataCreateCandidateStatus?.success) {
       kanbanContext?.reloadData(async () => {
-        const response = await reclutaAPI.kanbanPosition('findOne', {
+        const response = await reclutaAPI.kanbanPosition.findOne({
           id: positionId,
         });
         return response?.data.kanbanData;
