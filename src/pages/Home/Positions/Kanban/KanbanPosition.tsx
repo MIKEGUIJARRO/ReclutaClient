@@ -1,16 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { BackButton } from '../../../../components/ui/BackButton';
-import { ReclutaAPI } from '../../../../services/reclutaAPI';
+import { reclutaAPI } from '../../../../services/recluta/ReclutaAPI';
 import { PositionKanbanWrapper } from '../../../../components/pages/positions/kanban/PositionKanbanWrapper';
 
 export const KanbanPosition = () => {
   const { positionId } = useParams();
-  const reclutaAPI = new ReclutaAPI();
   const { data, isLoading, error } = useQuery(
     [`positions/${positionId}/kanban`],
     async () => {
-      const response = await reclutaAPI.kanbanPosition('findOne', {
+      const response = await reclutaAPI.kanbanPosition.findOne({
         id: positionId,
       });
       return response;
