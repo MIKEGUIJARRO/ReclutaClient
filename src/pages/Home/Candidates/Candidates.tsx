@@ -1,12 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
 import { CardCandidatesContainer } from '../../../components/pages/candidates/CardCandidatesContainer';
-import { ReclutaAPI } from '../../../services/reclutaAPI';
+import { reclutaAPI } from '../../../services/recluta/ReclutaAPI';
 
 export const Candidates = () => {
-  const reclutaAPI = new ReclutaAPI();
   const { data, isLoading, error } = useQuery(['positions'], async () => {
-    const response = await reclutaAPI.candidates('findAll', {});
+    const response = await reclutaAPI.candidates.findAll({});
     return response;
   });
   return (
