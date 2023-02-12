@@ -1,12 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { ReclutaAPI } from '../services/reclutaAPI';
+import { reclutaAPI } from '../services/recluta/ReclutaAPI';
 
 export const useGetProfile = () => {
-  const reclutaApi = new ReclutaAPI();
   const { isLoading, error, data, refetch } = useQuery(
     ['profile'],
     async () => {
-      const response = await reclutaApi.auth('getProfile');
+      const response = await reclutaAPI.auth.getProfile({});
       return response;
     }
   );
